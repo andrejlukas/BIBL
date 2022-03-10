@@ -21,6 +21,7 @@
   </head>
 
   <body>
+    <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
       <div class="container">
         <a class="navbar-brand" href="#"
@@ -62,7 +63,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#">Whishlist</a>
+              <a class="nav-link" href="#">Wishlist</a>
             </li>
 
             <li class="nav-item dropdown">
@@ -98,7 +99,12 @@
                   </svg>
                   Instagram
                 </a>
-                <a class="dropdown-item" href="#">
+                <a
+                  class="dropdown-item"
+                  data-toggle="modal"
+                  data-target="#emailModal"
+                  href="#"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -113,7 +119,11 @@
                   </svg>
                   Email
                 </a>
-                <a class="dropdown-item" href="#"
+                <a
+                  class="dropdown-item"
+                  data-toggle="modal"
+                  data-target="#informationModal"
+                  href="#"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -137,6 +147,60 @@
         </div>
       </div>
     </nav>
+
+    <div class="container" id="container"></div>
+
+    <!-- email modal-->
+    <div
+      class="modal fade"
+      id="emailModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="emailModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Contact email</h5>
+          </div>
+          <div class="modal-body">biblbussinescontact@gmail.com</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- information modal-->
+    <div
+      class="modal fade"
+      id="informationModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="informationModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+          </div>
+          <div class="modal-body">
+            Bibl is a great tool for book lovers and those who want to start
+            reading books. It allows you to search for books by their title,
+            author and genre.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="main.js"></script>
     <script src="linkovi.js"></script>
