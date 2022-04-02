@@ -2,6 +2,25 @@ document.querySelector("#show-login").addEventListener("click", () => {
   showLogin();
 });
 
+const btnShowPassword = document.getElementById("show-password");
+const passwordField = document.getElementById("passwordInput");
+const passwordResgisterField = document.getElementById("passwordRegistration");
+const reenteredPasswordResgisterField = document.getElementById("passwordRegistrationReenter");
+
+btnShowPassword.onclick = function showPassword() {
+  if (btnShowPassword.textContent == "Show Password") {
+    passwordField.type = "text";
+    passwordResgisterField.type = "text";
+    reenteredPasswordResgisterField.type="text";
+    btnShowPassword.textContent = "Hide Password";
+  } else if (btnShowPassword.textContent == "Hide Password") {
+    passwordField.type = "password";
+    passwordResgisterField.type = "password";
+    reenteredPasswordResgisterField.type = "password";
+    btnShowPassword.textContent = "Show Password";
+  }
+};
+
 const showLogin = () => {
   document.querySelector("#registration-page").classList.add("hide");
   document.querySelector("#login-page").classList.remove("hide");
@@ -33,7 +52,6 @@ const app = firebase.initializeApp(firebaseConfig);
 let database = app.firestore();
 
 document.getElementById("login-btn").onclick = async function loginFunction() {
-  console.log("???");
   let inputName = document.getElementById("usernameInput").value;
   console.log(document.getElementById("usernameInput").value);
   let inputPassword = document.getElementById("passwordInput").value;
@@ -50,24 +68,23 @@ document.getElementById("login-btn").onclick = async function loginFunction() {
           doc.data().password === inputPassword
         ) {
           check = true;
-          let string = doc.data().name;
-          alert(string);
         }
       });
     });
   if (check === true) {
-    alert("postoji");
     window.location.href = "MainPage.html";
   } else {
-    alert("krivo ime ili lozinka");
+    alert("Incorrect username or password! \nPlease try again!");
   }
 };
 
-document.getElementById("register-btn").onclick = async function registerFunction() {
-
+document.getElementById("register-btn").onclick =
+  async function registerFunction() {
     let inputName = document.getElementById("usernameRegistration").value;
     let inputPassword = document.getElementById("passwordRegistration").value;
-    let inputPasswordReenter=document.getElementById("passwordRegistrationReenter").value;
+    let inputPasswordReenter = document.getElementById(
+      "passwordRegistrationReenter"
+    ).value;
     let usernameExists = false;
 
     await database
@@ -81,28 +98,31 @@ document.getElementById("register-btn").onclick = async function registerFunctio
         });
       });
 
-  if (inputPasswordReenter === inputPassword) {
+    if (document.getElementById("usernameRegistration").value.length != 0) {
+      if (inputPassword.length > 7) {
+        if (inputPasswordReenter === inputPassword) {
+          if (usernameExists === true) {
+            alert("Username already taken!");
+          } else if (usernameExists === false) {
+            let user = {
+              name: inputName,
+              password: inputPassword,
+            };
 
-    if (usernameExists === true) {
-      alert("Ime već postoji");
+            await database.collection("Users").add(user);
+            alert("You have succesfully signed up");
+
+            window.location.href = "LoginPage.html";
+          }
+        } else {
+          alert(
+            "Conformation password does not match password!\nPlease try again!"
+          );
+        }
+      } else {
+        alert("Password must contain at least 8 characters!");
+      }
+    } else {
+      alert("You must enter a username!");
     }
-
-    else if (usernameExists === false) {
-
-      let user = {
-        
-        name: inputName,
-        password: inputPassword,
-
-      };
-      
-      await database.collection("Users").add(user);
-      alert("Uspjesna registracija");
-
-      window.location.href = "MainPage.html";
-    }
-  }
-  else {
-    alert("Pogrešno ste unijeli drugi password")
-  }
   };
