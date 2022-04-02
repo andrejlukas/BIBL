@@ -90,18 +90,13 @@ document.getElementById("register-btn").onclick = async function registerFunctio
     else if (usernameExists === false) {
 
       let user = {
+        
         name: inputName,
         password: inputPassword,
+
       };
       
-
-      database.collection("Users").add({
-
-        name: inputName,
-        password: inputPassword,
-
-      });
-
+      await database.collection("Users").add(user);
       alert("Uspjesna registracija");
 
       window.location.href = "MainPage.html";
