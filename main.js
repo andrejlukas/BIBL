@@ -1,4 +1,4 @@
-document.getElementById("container-searchByTitle").style.visibility = "hidden";
+document.getElementById("container-searchByTitle").style.visibility = "visible";
 document.getElementById("container-searchByAuthor").style.visibility = "hidden";
 //Get the button
 let mybutton = document.getElementById("btn-back-to-top");
@@ -37,7 +37,7 @@ document.getElementById("searchByAuthorBtn").onclick = function () {
     "hidden";
 };
 
-let item, title, author, bookImage, publisher, pageCount, maturityRating;
+let item, title, author, bookImage, publisher, pageCount, maturityRating, link;
 let numOfBooks = 0;
 var apiKey = "key=AIzaSyDtXC7kb6a7xKJdm_Le6_BYoY5biz6s8Lw";
 
@@ -53,8 +53,8 @@ document.getElementById("search-by-title").onclick = function SearchByTitle() {
       success: function (response) {
         console.log(response);
         if (response.totalItems === 0) {
-          document.getElementById("results").innerHTML +=
-            "<h4>Looks like there are no good results for your search :(</h4>";
+          document.getElementById("results").innerHTML =
+            "<center><h4 id='noGoodResults'>Looks like there are no good results for your search :(</h4><center>";
         } else {
           displayResults(response);
         }
@@ -73,15 +73,25 @@ function displayResults(response) {
     item = response.items[i];
 
     title = item.volumeInfo.title;
-    author = item.volumeInfo.authors;
+    if (item.volumeInfo.authors == null) {
+      author = "/";
+    } else {
+      author = item.volumeInfo.authors;
+    }
     if (item.volumeInfo.publisher == null) {
       publisher = "/";
     } else {
       publisher = item.volumeInfo.publisher;
     }
 
+    if (item.volumeInfo.pageCount == null) {
+      pageCount = "/";
+    } else {
+      pageCount = item.volumeInfo.pageCount;
+    }
+
     maturityRating = item.volumeInfo.maturityRating;
-    pageCount = item.volumeInfo.pageCount;
+    link = item.volumeInfo.canonicalVolumeLink;
 
     bookImage = item.volumeInfo.imageLinks
       ? item.volumeInfo.imageLinks.thumbnail
@@ -90,8 +100,8 @@ function displayResults(response) {
 
     document.getElementById("results").innerHTML += `<br><br>
     <div class="col-12 col-md-6 col-lg-4 mt-5 mb-5 " >
-      <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="${bookImage}" alt="Card image cap">
+      <div class="card mb-3" style="width: 18rem;">
+  <img class="img-fluid rounded-start" src="${bookImage}" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">${title}</h5>
     <p class="card-text">Author: ${author}</p>
@@ -99,6 +109,7 @@ function displayResults(response) {
     <p class="card-text">Page Count: ${pageCount}</p>
     <p class="card-text">Maturity Rating: ${maturityRating}</p>
     <a  class="btn btn-primary">Add to whishlist</a>
+    <a  class="btn btn-primary" href="${link}" target="_blank">See book</a>
   </div>
 </div>
 </div>

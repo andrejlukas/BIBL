@@ -5,6 +5,10 @@ html {
   /* overflow: hidden; */
 }
 
+#noGoodResults {
+  margin-top: 5%;
+}
+
 #loginPageBackgroundImage {
   height: 100%;
   width: 100%;
