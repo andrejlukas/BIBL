@@ -1,0 +1,12 @@
+#searchbar-container{
+padding-top: 6%;
+}
+
+.container{
+display:grid
+}
+
+.layer1, .layer2{
+  grid-column: 1;
+  grid-row: 1;
+}

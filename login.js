@@ -1,3 +1,14 @@
+let loader = document.getElementById("preloader");
+
+window.addEventListener("load", function () {
+  loader.style.display = "none";
+  loader.style.backgroundImage;
+});
+
+let delay = document.getElementById("links");
+
+delay.style.display = "none";
+
 document.querySelector("#show-login").addEventListener("click", () => {
   showLogin();
 });
@@ -5,13 +16,15 @@ document.querySelector("#show-login").addEventListener("click", () => {
 const btnShowPassword = document.getElementById("show-password");
 const passwordField = document.getElementById("passwordInput");
 const passwordResgisterField = document.getElementById("passwordRegistration");
-const reenteredPasswordResgisterField = document.getElementById("passwordRegistrationReenter");
+const reenteredPasswordResgisterField = document.getElementById(
+  "passwordRegistrationReenter"
+);
 
 btnShowPassword.onclick = function showPassword() {
   if (btnShowPassword.textContent == "Show Password") {
     passwordField.type = "text";
     passwordResgisterField.type = "text";
-    reenteredPasswordResgisterField.type="text";
+    reenteredPasswordResgisterField.type = "text";
     btnShowPassword.textContent = "Hide Password";
   } else if (btnShowPassword.textContent == "Hide Password") {
     passwordField.type = "password";
