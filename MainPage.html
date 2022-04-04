@@ -56,9 +56,16 @@
                   class="dropdown-menu"
                   aria-labelledby="navbarDropdownMenuLink"
                 >
-                  <li><a class="dropdown-item" href="#" id="searchByTitleBtn">Title</a></li>
-                  <li><a class="dropdown-item" href="#" id="searchByAuthorBtn">Author</a></li>
-                  <li><a class="dropdown-item" href="#">Genre</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#" id="searchByTitleBtn"
+                      >Title</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#" id="searchByAuthorBtn"
+                      >Author</a
+                    >
+                  </li>
                 </ul>
               </div>
             </li>
@@ -155,29 +162,43 @@
       </div>
     </nav>
 
-    <div class="container" id="searchbar-container" >
+    <div class="container" id="searchbar-container">
+      <!--Search by title-->
 
       <div id="container-searchByTitle" class="layer1">
-        <div> 
-          <h1 id="header"> Search by title</h1>
+        <div>
+          <h1 id="header">Search by title</h1>
         </div>
 
-        <div id="input" class="col-lg-8 col-md-8 col-sm-12">
-          <input id="search-box" type="text" class="form-control" placeholder="Search Books!"/>
-          <button id="search" class="btn btn-primary">Search</button>
+        <div id="input" class="input-group col-lg-8 col-md-8 col-sm-12">
+          <input
+            id="search-box-title"
+            type="text"
+            class="form-control"
+            placeholder="Search Books"
+          />
+          <button id="search-by-title" class="btn btn-primary">Search</button>
         </div>
       </div>
 
-       <div id="container-searchByAuthor" class="layer2">
-        <div> 
-          <h1 id="header"> Search by author</h1>
+      <!--Search by author-->
+
+      <div id="container-searchByAuthor" class="layer2">
+        <div>
+          <h1 id="header">Search by author</h1>
         </div>
 
         <div id="input" class="col-lg-8 col-md-8 col-sm-12">
-          <input id="search-box" type="text" class="form-control" placeholder="Search Authors!"/>
-          <button id="search" class="btn btn-primary">Search</button>
+          <input
+            id="search-box-author"
+            type="text"
+            class="form-control"
+            placeholder="Search Authors"
+          />
+          <button id="search-by-author" class="btn btn-primary">Search</button>
         </div>
       </div>
+      <div id="results" class="row"></div>
     </div>
 
     <!-- email modal-->
@@ -232,7 +253,24 @@
       </div>
     </div>
 
+    <button type="button" class="btn btn-primary rounded" id="btn-back-to-top">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-arrow-up"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"
+        />
+      </svg>
+    </button>
+
     <script src="main.js"></script>
+
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -248,5 +286,6 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
   </body>
 </html>

@@ -13,7 +13,10 @@ document.querySelector("#show-login").addEventListener("click", () => {
   showLogin();
 });
 
-const btnShowPassword = document.getElementById("show-password");
+const btnShowPassword = document.getElementById("show-password-login");
+const btnShowPasswordRegister = document.getElementById(
+  "show-password-register"
+);
 const passwordField = document.getElementById("passwordInput");
 const passwordResgisterField = document.getElementById("passwordRegistration");
 const reenteredPasswordResgisterField = document.getElementById(
@@ -23,14 +26,23 @@ const reenteredPasswordResgisterField = document.getElementById(
 btnShowPassword.onclick = function showPassword() {
   if (btnShowPassword.textContent == "Show Password") {
     passwordField.type = "text";
-    passwordResgisterField.type = "text";
-    reenteredPasswordResgisterField.type = "text";
     btnShowPassword.textContent = "Hide Password";
   } else if (btnShowPassword.textContent == "Hide Password") {
     passwordField.type = "password";
+
+    btnShowPassword.textContent = "Show Password";
+  }
+};
+
+btnShowPasswordRegister.onclick = function showPassword() {
+  if (btnShowPasswordRegister.textContent == "Show Password") {
+    passwordResgisterField.type = "text";
+    reenteredPasswordResgisterField.type = "text";
+    btnShowPasswordRegister.textContent = "Hide Password";
+  } else if (btnShowPasswordRegister.textContent == "Hide Password") {
     passwordResgisterField.type = "password";
     reenteredPasswordResgisterField.type = "password";
-    btnShowPassword.textContent = "Show Password";
+    btnShowPasswordRegister.textContent = "Show Password";
   }
 };
 
