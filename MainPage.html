@@ -18,7 +18,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="mainPage.css" />
-    <link rel="stylesheet" href="theme.css" />
+    
   </head>
 
   <body>
@@ -71,7 +71,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#">Wishlist</a>
+              <a class="nav-link" id="wishlist-btn" href="wishlist.html">Wishlist</a>
             </li>
 
             <li class="nav-item dropdown">
@@ -269,8 +269,10 @@
       </svg>
     </button>
 
+    <script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-firestore-compat.js"></script>
+  
     <script src="main.js"></script>
-
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

@@ -1,3 +1,4 @@
+import { getAuth } from "firebase/auth";
 document.getElementById("container-searchByTitle").style.visibility = "visible";
 document.getElementById("container-searchByAuthor").style.visibility = "hidden";
 //Get the button
@@ -99,22 +100,75 @@ function displayResults(response) {
     numOfBooks = i;
 
     document.getElementById("results").innerHTML += `<br><br>
-    <div class="col-12 col-md-6 col-lg-4 mt-5 mb-5 " >
+    <div  class="col-12 col-md-6 col-lg-4 mt-5 mb-5 " >
       <div class="card mb-3" style="width: 18rem;">
-  <img class="img-fluid rounded-start" src="${bookImage}" alt="Card image cap">
+  <img class="img-fluid rounded-start" src="${bookImage}" alt="Card image cap" id="bookImage-${i}">
   <div class="card-body">
-    <h5 class="card-title">${title}</h5>
-    <p class="card-text">Author: ${author}</p>
-    <p class="card-text">Publisher: ${publisher}</p>
-    <p class="card-text">Page Count: ${pageCount}</p>
-    <p class="card-text">Maturity Rating: ${maturityRating}</p>
-    <a  class="btn btn-primary">Add to whishlist</a>
-    <a  class="btn btn-primary" href="${link}" target="_blank">See book</a>
+    <h5 class="card-title" id="title-${i}" >${title}</h5>
+    <p class="card-text" id="author-${i}">Author: ${author}</p>
+    <p class="card-text" id="publisher-${i}">Publisher: ${publisher}</p>
+    <p class="card-text" id="pageCount-${i}">Page Count: ${pageCount}</p>
+    <p class="card-text" id="maturityRating-${i}">Maturity Rating: ${maturityRating}</p>
+    <a  class="btn btn-primary" id="wishlist-${i}">Add to whishlist</a>
+    <a  class="btn btn-primary" id="link-${i}" href="${link}" target="_blank">See book</a>
   </div>
 </div>
 </div>
 <br>
 
   `;
+  }
+
+  document.getElementById("wishlist-0").onclick = function () {
+    AddToWishlist(0);
+  };
+  document.getElementById("wishlist-1").onclick = function () {
+    AddToWishlist(1);
+  };
+  document.getElementById("wishlist-2").onclick = function () {
+    AddToWishlist(2);
+  };
+  document.getElementById("wishlist-3").onclick = function () {
+    AddToWishlist(3);
+  };
+  document.getElementById("wishlist-4").onclick = function () {
+    AddToWishlist(4);
+  };
+  document.getElementById("wishlist-5").onclick = function () {
+    AddToWishlist(5);
+  };
+  document.getElementById("wishlist-6").onclick = function () {
+    AddToWishlist(6);
+  };
+  document.getElementById("wishlist-7").onclick = function () {
+    AddToWishlist(7);
+  };
+  document.getElementById("wishlist-8").onclick = function () {
+    AddToWishlist(8);
+  };
+  document.getElementById("wishlist-9").onclick = function () {
+    AddToWishlist(9);
+  };
+
+  function AddToWishlist(n) {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    alert(user.name);
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBTybQQFIAfYP-k8_2ecjBcjqkKR_rbih8",
+      authDomain: "bibl-project.firebaseapp.com",
+      projectId: "bibl-project",
+      storageBucket: "bibl-project.appspot.com",
+      messagingSenderId: "38262289068",
+      appId: "1:38262289068:web:ce2dc464858a691f7ae509",
+      measurementId: "G-ZGYJG9V6S7",
+    };
+
+    //   const app = firebase.initializeApp(firebaseConfig);
+
+    //   let database = app.firestore();
+
+    //   await database
   }
 }

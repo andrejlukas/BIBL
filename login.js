@@ -132,6 +132,7 @@ document.getElementById("register-btn").onclick =
             let user = {
               name: inputName,
               password: inputPassword,
+              wishlist:[],
             };
 
             await database.collection("Users").add(user);
@@ -151,3 +152,4 @@ document.getElementById("register-btn").onclick =
       alert("You must enter a username!");
     }
   };
+
