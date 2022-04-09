@@ -106,10 +106,8 @@ document.getElementById("login-btn").onclick = async function loginFunction() {
     alert("Incorrect username or password! \nPlease try again!");
   }
   localStorage.setItem("docUser", JSON.stringify(docUser));
-  localStorage.setItem("wishlistArray", JSON.stringify(wishlistArray))
-
+  localStorage.setItem("wishlistArray", JSON.stringify(wishlistArray));
 };
-
 
 document.getElementById("register-btn").onclick =
   async function registerFunction() {
@@ -160,7 +158,3 @@ document.getElementById("register-btn").onclick =
       alert("You must enter a username!");
     }
   };
-
-
-
-

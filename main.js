@@ -1,5 +1,3 @@
-document.getElementById("container-searchByTitle").style.visibility = "visible";
-document.getElementById("container-searchByAuthor").style.visibility = "hidden";
 //Get the button
 let mybutton = document.getElementById("btn-back-to-top");
 
@@ -24,24 +22,12 @@ function backToTop() {
 }
 
 let placeHolder = `<img src="https://via.placeholder.com/150">`;
-document.getElementById("searchByTitleBtn").onclick = function () {
-  document.getElementById("container-searchByTitle").style.visibility =
-    "visible";
-  document.getElementById("container-searchByAuthor").style.visibility =
-    "hidden";
-};
-
-document.getElementById("searchByAuthorBtn").onclick = function () {
-  document.getElementById("container-searchByAuthor").style.visibility =
-    "visible";
-  document.getElementById("container-searchByTitle").style.visibility =
-    "hidden";
-};
 
 let item, title, author, bookImage, publisher, pageCount, maturityRating, link;
 let numOfBooks = 0;
 var apiKey = "key=AIzaSyDtXC7kb6a7xKJdm_Le6_BYoY5biz6s8Lw";
 let tempArray = [];
+let Wishlist;
 
 document.getElementById("search-by-title").onclick = function SearchByTitle() {
   let baseTitleUrl = "https://www.googleapis.com/books/v1/volumes?q=";
@@ -68,14 +54,14 @@ document.getElementById("search-by-title").onclick = function SearchByTitle() {
   }
   document.getElementById("search-box-title").value = "";
 };
-var userName = JSON.parse(localStorage.getItem("inputName"))
-console.log(userName)
+var userName = JSON.parse(localStorage.getItem("inputName"));
+console.log(userName);
 
 var userdoc = JSON.parse(localStorage.getItem("docUser"));
-console.log(userdoc)
+console.log(userdoc);
 
-var wishlistArray = JSON.parse(localStorage.getItem("wishlistArray"));
-console.log(wishlistArray)
+var wishlistArray = JSON.stringify(localStorage.getItem("wishlistArray"));
+console.log(wishlistArray);
 
 function displayResults(response) {
   document.getElementById("results").innerHTML = "";
@@ -109,13 +95,13 @@ function displayResults(response) {
     numOfBooks = i;
 
     let tempItem = {
-      Title: title,
-      Author: author,
-      Publisher: publisher,
-      PageCount: pageCount,
-      MaturityRating: maturityRating,
-      BookImage: bookImage,
-      Link: link,
+      title,
+      author,
+      publisher,
+      pageCount,
+      maturityRating,
+      bookImage,
+      link,
     };
 
     tempArray.push(tempItem);
@@ -139,9 +125,8 @@ function displayResults(response) {
   `;
   }
 
-
   document.getElementById("wishlist-0").onclick = function () {
-    alert("oce kurac")
+    alert("oce kurac");
     AddToWishlist(0);
   };
   document.getElementById("wishlist-1").onclick = function () {
@@ -171,35 +156,73 @@ function displayResults(response) {
   document.getElementById("wishlist-9").onclick = function () {
     AddToWishlist(9);
   };
+  const firebaseConfig = {
+    apiKey: "AIzaSyBTybQQFIAfYP-k8_2ecjBcjqkKR_rbih8",
+    authDomain: "bibl-project.firebaseapp.com",
+    projectId: "bibl-project",
+    storageBucket: "bibl-project.appspot.com",
+    messagingSenderId: "38262289068",
+    appId: "1:38262289068:web:ce2dc464858a691f7ae509",
+    measurementId: "G-ZGYJG9V6S7",
+  };
 
+  const app = firebase.initializeApp(firebaseConfig);
+
+  let database = app.firestore();
   async function AddToWishlist(n) {
-    alert(userName)
+    alert(userName);
 
     let selectedBook = tempArray[n];
+    let wishlistString = `${selectedBook.title}, ${selectedBook.author},${selectedBook.publisher},${selectedBook.pageCount},${selectedBook.maturityRating},${selectedBook.bookImage},${selectedBook.link}`;
+
+    wishlistArray += `|${wishlistString}`;
 
     console.log(wishlistArray);
 
-    wishlistArray.push(selectedBook)
-
-    console.log(wishlistArray)
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBTybQQFIAfYP-k8_2ecjBcjqkKR_rbih8",
-      authDomain: "bibl-project.firebaseapp.com",
-      projectId: "bibl-project",
-      storageBucket: "bibl-project.appspot.com",
-      messagingSenderId: "38262289068",
-      appId: "1:38262289068:web:ce2dc464858a691f7ae509",
-      measurementId: "G-ZGYJG9V6S7",
-    };
-
-      const app = firebase.initializeApp(firebaseConfig);
-
-      let database = app.firestore();
-  
-      await database
-        .collection("Users")
-        .doc(userdoc)
-        .update({ wishlist: [wishlistArray] });
+    await database
+      .collection("Users")
+      .doc(userdoc)
+      .update({ wishlist: [wishlistArray] });
   }
 }
+
+// document.getElementById("wishlist-btn").onclick = async function () {
+//   await database
+//     .collection("Users")
+//     .where("name", "==", UserName)
+//     .get()
+//     .then(function (querySnapshot) {
+//       querySnapshot.forEach(function (doc) {
+//         Wishlist = doc.data().wishlist;
+//         console.log(Wishlist);
+//       });
+//     });
+
+//   showWishlist(Wishlist);
+// };
+
+// function showWishlist(Wishlist) {
+//   Wishlist = Wishlist.split("|");
+//   for (i = 1; i < Wishlist.length; i++) {
+//     let cardWishlist = Wishlist[i].split(",");
+
+//     document.getElementById("wishlist-results").innerHTML += `<br><br>
+//     <div  class="col-12 col-md-6 col-lg-4 mt-5 mb-5 " >
+//       <div class="card mb-3" style="width: 18rem;">
+//       <img class="img-fluid rounded-start"  src='${cardWishlist[5]}' alt="No picture">
+//       <div class="card-body">
+//     <h5 class="card-title"  >${cardWishlist[0]}</h5>
+//     <p class="card-text" >Author: ${cardWishlist[1]}</p>
+//     <p class="card-text" ">Publisher: ${cardWishlist[2]}</p>
+//     <p class="card-text" >Page Count: ${cardWishlist[3]}</p>
+//     <p class="card-text" >Maturity Rating: ${cardWishlist[4]}</p>
+//     <a  class="btn btn-primary" >Remove from whishlist</a>
+//     <a  class="btn btn-primary"  href="${cardWishlist[6]}" target="_blank">See book</a>
+//   </div>
+// </div>
+// </div>
+// <br>
+
+//   `;
+//   }
+// }
