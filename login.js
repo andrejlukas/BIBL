@@ -1,5 +1,7 @@
 let loader = document.getElementById("preloader");
-
+let inputName;
+let docUser;
+let wishlistArray;
 window.addEventListener("load", function () {
   loader.style.display = "none";
   loader.style.backgroundImage;
@@ -77,7 +79,8 @@ const app = firebase.initializeApp(firebaseConfig);
 let database = app.firestore();
 
 document.getElementById("login-btn").onclick = async function loginFunction() {
-  let inputName = document.getElementById("usernameInput").value;
+  inputName = document.getElementById("usernameInput").value;
+  localStorage.setItem("inputName", JSON.stringify(inputName));
   console.log(document.getElementById("usernameInput").value);
   let inputPassword = document.getElementById("passwordInput").value;
   let check = false;
@@ -87,12 +90,13 @@ document.getElementById("login-btn").onclick = async function loginFunction() {
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        console.log(inputPassword);
         if (
           doc.data().name === inputName &&
           doc.data().password === inputPassword
         ) {
           check = true;
+          docUser = doc.id;
+          wishlistArray = doc.data().wishlist;
         }
       });
     });
@@ -101,11 +105,15 @@ document.getElementById("login-btn").onclick = async function loginFunction() {
   } else {
     alert("Incorrect username or password! \nPlease try again!");
   }
+  localStorage.setItem("docUser", JSON.stringify(docUser));
+  localStorage.setItem("wishlistArray", JSON.stringify(wishlistArray))
+
 };
+
 
 document.getElementById("register-btn").onclick =
   async function registerFunction() {
-    let inputName = document.getElementById("usernameRegistration").value;
+    inputName = document.getElementById("usernameRegistration").value;
     let inputPassword = document.getElementById("passwordRegistration").value;
     let inputPasswordReenter = document.getElementById(
       "passwordRegistrationReenter"
@@ -132,7 +140,7 @@ document.getElementById("register-btn").onclick =
             let user = {
               name: inputName,
               password: inputPassword,
-              wishlist:[],
+              wishlist: [],
             };
 
             await database.collection("Users").add(user);
@@ -152,4 +160,7 @@ document.getElementById("register-btn").onclick =
       alert("You must enter a username!");
     }
   };
+
+
+
 

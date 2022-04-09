@@ -1,4 +1,3 @@
-import { getAuth } from "firebase/auth";
 document.getElementById("container-searchByTitle").style.visibility = "visible";
 document.getElementById("container-searchByAuthor").style.visibility = "hidden";
 //Get the button
@@ -24,6 +23,7 @@ function backToTop() {
   document.documentElement.scrollTop = 0;
 }
 
+let placeHolder = `<img src="https://via.placeholder.com/150">`;
 document.getElementById("searchByTitleBtn").onclick = function () {
   document.getElementById("container-searchByTitle").style.visibility =
     "visible";
@@ -41,6 +41,7 @@ document.getElementById("searchByAuthorBtn").onclick = function () {
 let item, title, author, bookImage, publisher, pageCount, maturityRating, link;
 let numOfBooks = 0;
 var apiKey = "key=AIzaSyDtXC7kb6a7xKJdm_Le6_BYoY5biz6s8Lw";
+let tempArray = [];
 
 document.getElementById("search-by-title").onclick = function SearchByTitle() {
   let baseTitleUrl = "https://www.googleapis.com/books/v1/volumes?q=";
@@ -67,6 +68,14 @@ document.getElementById("search-by-title").onclick = function SearchByTitle() {
   }
   document.getElementById("search-box-title").value = "";
 };
+var userName = JSON.parse(localStorage.getItem("inputName"))
+console.log(userName)
+
+var userdoc = JSON.parse(localStorage.getItem("docUser"));
+console.log(userdoc)
+
+var wishlistArray = JSON.parse(localStorage.getItem("wishlistArray"));
+console.log(wishlistArray)
 
 function displayResults(response) {
   document.getElementById("results").innerHTML = "";
@@ -99,11 +108,22 @@ function displayResults(response) {
       : placeHolder;
     numOfBooks = i;
 
+    let tempItem = {
+      Title: title,
+      Author: author,
+      Publisher: publisher,
+      PageCount: pageCount,
+      MaturityRating: maturityRating,
+      BookImage: bookImage,
+      Link: link,
+    };
+
+    tempArray.push(tempItem);
     document.getElementById("results").innerHTML += `<br><br>
     <div  class="col-12 col-md-6 col-lg-4 mt-5 mb-5 " >
       <div class="card mb-3" style="width: 18rem;">
-  <img class="img-fluid rounded-start" src="${bookImage}" alt="Card image cap" id="bookImage-${i}">
-  <div class="card-body">
+      <img class="img-fluid rounded-start" id="bookImage-${i}" src='${bookImage}' alt="No picture">
+      <div class="card-body">
     <h5 class="card-title" id="title-${i}" >${title}</h5>
     <p class="card-text" id="author-${i}">Author: ${author}</p>
     <p class="card-text" id="publisher-${i}">Publisher: ${publisher}</p>
@@ -119,7 +139,9 @@ function displayResults(response) {
   `;
   }
 
+
   document.getElementById("wishlist-0").onclick = function () {
+    alert("oce kurac")
     AddToWishlist(0);
   };
   document.getElementById("wishlist-1").onclick = function () {
@@ -150,10 +172,16 @@ function displayResults(response) {
     AddToWishlist(9);
   };
 
-  function AddToWishlist(n) {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    alert(user.name);
+  async function AddToWishlist(n) {
+    alert(userName)
+
+    let selectedBook = tempArray[n];
+
+    console.log(wishlistArray);
+
+    wishlistArray.push(selectedBook)
+
+    console.log(wishlistArray)
 
     const firebaseConfig = {
       apiKey: "AIzaSyBTybQQFIAfYP-k8_2ecjBcjqkKR_rbih8",
@@ -165,10 +193,13 @@ function displayResults(response) {
       measurementId: "G-ZGYJG9V6S7",
     };
 
-    //   const app = firebase.initializeApp(firebaseConfig);
+      const app = firebase.initializeApp(firebaseConfig);
 
-    //   let database = app.firestore();
-
-    //   await database
+      let database = app.firestore();
+  
+      await database
+        .collection("Users")
+        .doc(userdoc)
+        .update({ wishlist: [wishlistArray] });
   }
 }
