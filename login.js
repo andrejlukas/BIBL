@@ -106,7 +106,7 @@ document.getElementById("login-btn").onclick = async function loginFunction() {
     alert("Incorrect username or password! \nPlease try again!");
   }
   localStorage.setItem("docUser", JSON.stringify(docUser));
-  localStorage.setItem("wishlistArray", JSON.stringify(wishlistArray));
+  // localStorage.setItem("wishlistArray", JSON.stringify(wishlistArray));
 };
 
 document.getElementById("register-btn").onclick =
@@ -138,7 +138,7 @@ document.getElementById("register-btn").onclick =
             let user = {
               name: inputName,
               password: inputPassword,
-              wishlist: [],
+              wishlist: "",
             };
 
             await database.collection("Users").add(user);

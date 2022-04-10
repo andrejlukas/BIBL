@@ -22,7 +22,10 @@
 
   <body>
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+    <nav
+      id="navbar"
+      class="navbar navbar-expand-lg navbar-dark bg-dark shadow sticky"
+    >
       <div class="container">
         <a class="navbar-brand" href="#"
           ><img src="images/Bibl logo.png" width="83" height="40" alt=""
@@ -139,7 +142,7 @@
 
       <div id="container-searchByTitle" class="layer1">
         <div>
-          <h1 id="header">Search by title</h1>
+          <h1 id="header">Search books</h1>
         </div>
 
         <div id="input" class="input-group col-lg-8 col-md-8 col-sm-12">
@@ -147,7 +150,7 @@
             id="search-box-title"
             type="text"
             class="form-control"
-            placeholder="Search Books"
+            placeholder="Enter a book's title or author"
           />
           <button id="search-by-title" class="btn btn-primary">Search</button>
         </div>
@@ -197,7 +200,7 @@
           <div class="modal-body">
             Bibl is a great tool for book lovers and those who want to start
             reading books. It allows you to search for books by their title and
-            author.
+            author as well as add them to your wishlist.
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">

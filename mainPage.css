@@ -1,8 +1,18 @@
 body {
-  background-color: darkgrey;
+  background-image: url("https://img.besthqwallpapers.com/Uploads/16-5-2020/132669/stack-of-books-blue-background-education-concepts-books-library.jpg");
+
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 #searchbar-container {
+  padding-top: 6%;
+}
+#container {
   padding-top: 6%;
 }
 
