@@ -1,12 +1,10 @@
-
-
 let mybutton = document.getElementById("btn-back-to-top");
 
 var UserName = JSON.parse(localStorage.getItem("inputName"));
 console.log(UserName);
 let Wishlist;
 
-// When the user scrolls down 20px from the top of the document, show the button
+// Kada user scrolla dole 20px pokaže se button 
 window.onscroll = function () {
   scrollFunction();
 };
@@ -18,7 +16,7 @@ function scrollFunction() {
     mybutton.style.display = "none";
   }
 }
-// When the user clicks on the button, scroll to the top of the document
+// Kada user pritisne button, vrati se na početak documenta
 mybutton.addEventListener("click", backToTop);
 
 function backToTop() {
@@ -28,6 +26,7 @@ function backToTop() {
 
 getWishlist();
 
+//dohvaća se wishlist iz firebasea i ispisuje 
 async function getWishlist() {
   const firebaseConfig = {
     apiKey: "AIzaSyBTybQQFIAfYP-k8_2ecjBcjqkKR_rbih8",

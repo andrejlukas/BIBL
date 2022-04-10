@@ -7,6 +7,7 @@ window.addEventListener("load", function () {
   loader.style.backgroundImage;
 });
 
+// div s linkovima postane nevidljiv
 let delay = document.getElementById("links");
 
 delay.style.display = "none";
@@ -15,6 +16,7 @@ document.querySelector("#show-login").addEventListener("click", () => {
   showLogin();
 });
 
+// show and hide password
 const btnShowPassword = document.getElementById("show-password-login");
 const btnShowPasswordRegister = document.getElementById(
   "show-password-register"
@@ -48,6 +50,7 @@ btnShowPasswordRegister.onclick = function showPassword() {
   }
 };
 
+//code za login and register forme
 const showLogin = () => {
   document.querySelector("#registration-page").classList.add("hide");
   document.querySelector("#login-page").classList.remove("hide");
@@ -64,6 +67,7 @@ const showRegistration = () => {
   document.querySelector("#homepage").classList.add("hide");
 };
 
+//firebase veza
 const firebaseConfig = {
   apiKey: "AIzaSyBTybQQFIAfYP-k8_2ecjBcjqkKR_rbih8",
   authDomain: "bibl-project.firebaseapp.com",
@@ -78,9 +82,10 @@ const app = firebase.initializeApp(firebaseConfig);
 
 let database = app.firestore();
 
+//funkcija za login 
 document.getElementById("login-btn").onclick = async function loginFunction() {
   inputName = document.getElementById("usernameInput").value;
-  localStorage.setItem("inputName", JSON.stringify(inputName));
+  localStorage.setItem("inputName", JSON.stringify(inputName));//šalje se ime trenutnog usera u main.js
   console.log(document.getElementById("usernameInput").value);
   let inputPassword = document.getElementById("passwordInput").value;
   let check = false;
@@ -105,10 +110,10 @@ document.getElementById("login-btn").onclick = async function loginFunction() {
   } else {
     alert("Incorrect username or password! \nPlease try again!");
   }
-  localStorage.setItem("docUser", JSON.stringify(docUser));
-  // localStorage.setItem("wishlistArray", JSON.stringify(wishlistArray));
+  localStorage.setItem("docUser", JSON.stringify(docUser)); //šalje se userov id u main.js
 };
 
+//funkcija za register
 document.getElementById("register-btn").onclick =
   async function registerFunction() {
     inputName = document.getElementById("usernameRegistration").value;
@@ -129,6 +134,7 @@ document.getElementById("register-btn").onclick =
         });
       });
 
+    //provjerava se jesu li zadovoljeni svi uvjeti za lozinku 
     if (document.getElementById("usernameRegistration").value.length != 0) {
       if (inputPassword.length > 7) {
         if (inputPasswordReenter === inputPassword) {

@@ -1,6 +1,6 @@
 let mybutton = document.getElementById("btn-back-to-top");
 
-// When the user scrolls down 20px from the top of the document, show the button
+// Kada user scrolla dole 20px pokaže se button 
 window.onscroll = function () {
   scrollFunction();
 };
@@ -12,7 +12,7 @@ function scrollFunction() {
     mybutton.style.display = "none";
   }
 }
-// When the user clicks on the button, scroll to the top of the document
+// Kada user pritisne button, vrati se na početak documenta
 mybutton.addEventListener("click", backToTop);
 
 function backToTop() {
@@ -29,6 +29,7 @@ let tempArray = [];
 let Wishlist;
 let WishlistArray;
 
+//search koji se pokrece clickom na button, koristili smo jquery
 document.getElementById("search-by-title").onclick = function SearchByTitle() {
   let baseTitleUrl = "https://www.googleapis.com/books/v1/volumes?q=";
   let title = document.getElementById("search-box-title").value;
@@ -54,12 +55,12 @@ document.getElementById("search-by-title").onclick = function SearchByTitle() {
   }
   document.getElementById("search-box-title").value = "";
 };
-var userName = JSON.parse(localStorage.getItem("inputName"));
+//dohvaćamo inputName i id usera iz firebasea
+var userName = JSON.parse(localStorage.getItem("inputName")); 
 
 var userdoc = JSON.parse(localStorage.getItem("docUser"));
 
-// var WishlistArray = JSON.stringify(localStorage.getItem("wishlistArray"));
-
+//ispisujemo response od api-ja u html karticama 
 function displayResults(response) {
   document.getElementById("results").innerHTML = "";
   for (let i = 0; i < response.items.length; i++) {
@@ -91,6 +92,7 @@ function displayResults(response) {
       : placeHolder;
     numOfBooks = i;
 
+    //kreiramo objekt od svake knjige koje onda spremamo u niz objekata tempArray
     let tempItem = {
       title,
       author,
@@ -102,6 +104,7 @@ function displayResults(response) {
     };
 
     tempArray.push(tempItem);
+
     document.getElementById("results").innerHTML += `<br><br>
     <div  class="col-12 col-md-6 col-lg-4 mt-5 mb-5 " >
       <div class="card mb-3" style="width: 18rem;">
@@ -122,6 +125,7 @@ function displayResults(response) {
     `;
   }
 
+  //provjeravamo koju knjigu user želi dodati na wishlist
   document.getElementById("wishlist-0").onclick = function () {
     AddToWishlist(0);
   };
@@ -153,6 +157,7 @@ function displayResults(response) {
     AddToWishlist(9);
   };
 
+
   async function AddToWishlist(n) {
     const firebaseConfig = {
       apiKey: "AIzaSyBTybQQFIAfYP-k8_2ecjBcjqkKR_rbih8",
@@ -174,16 +179,20 @@ function displayResults(response) {
         querySnapshot.forEach((doc) => {
           if (doc.data().name === userName) {
             docUser = doc.id;
-            WishlistArray = doc.data().wishlist;
+            WishlistArray = doc.data().wishlist; // dohvaćamo wislist usera sa firebasea koji je zapravo string a ne array
           }
         });
       });
 
-    let selectedBook = tempArray[n];
+    let selectedBook = tempArray[n];//kreiramo objekt od odabrane knjige niza objekata 
+
+    //kreiramo string od objekta sa svim svojstava objekta knjige
     let wishlistString = `${selectedBook.title}*${selectedBook.author}*${selectedBook.publisher}*${selectedBook.pageCount}*${selectedBook.maturityRating}*${selectedBook.bookImage}*${selectedBook.link}`;
 
+    // kreiramo novi string koji sadrži sve stare knjige i novo odabrane knjige 
     let wishlistfinallist = WishlistArray + "|" + wishlistString;
 
+    //upadatea se firebase 
     await database
       .collection("Users")
       .doc(userdoc)
@@ -191,6 +200,6 @@ function displayResults(response) {
 
     selectedBook = null;
     wishlistString = null;
-    // window.location = "wishlist.html";
+
   }
 }
